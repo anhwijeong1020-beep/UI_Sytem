@@ -6,21 +6,23 @@ st.set_page_config(page_title="Logistics UI", layout="wide")
 st.title("📦 Logistics Move Request UI")
 
 st.caption(
-    "자연어로 상황을 설명하고, 자재 / 시점 / 종점은 반드시 입력하세요.\n"
-    "건물·층·공간 명칭은 자유 입력입니다."
+    "자연어로 의도·현장상황·제약을 모두 설명하고,\n"
+    "자재 / 시점 / 종점은 반드시 입력하세요.\n"
+    "(건물·층·공간 명칭은 자유 입력)"
 )
 
 with st.form("move_request_form"):
-    # 1) Natural language
-    st.subheader("1) Natural language request")
+    # 1) Natural language (ALL-IN-ONE)
+    st.subheader("1) Intent & site situation (natural language)")
     nl = st.text_area(
-        "Intent & site situation",
+        "Describe everything here",
         placeholder=(
             "예) 10층에서 방 C로 목재를 옮기고 싶다.\n"
-            "복도 A는 마감 공사 중이라 피하고,\n"
-            "가능하면 안전을 우선하고 싶다."
+            "복도 A는 마감 공사 중이라 피해야 하고,\n"
+            "엘리베이터는 혼잡할 수 있어.\n"
+            "시간보다 안전을 조금 더 중요하게 생각한다."
         ),
-        height=140,
+        height=180,
     )
 
     # 2) Mandatory minimal fields
@@ -42,12 +44,6 @@ with st.form("move_request_form"):
             "Goal (종점) *",
             placeholder="예) 10F Room C / 7F 기계실",
         )
-
-    notes = st.text_area(
-        "Extra notes (optional)",
-        placeholder="예) 계단 사용 금지, 엘리베이터 혼잡 시간대 등",
-        height=90,
-    )
 
     submitted = st.form_submit_button("Generate payload")
 
@@ -73,9 +69,8 @@ if submitted:
         "material": material.strip(),
         "start": start.strip(),
         "goal": goal.strip(),
-        "notes": notes.strip(),
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "ui_version": "nl + required free-text fields (no strategy)",
+        "ui_version": "single NL + required free-text fields",
     }
 
     payload_str = json.dumps(payload, ensure_ascii=False, indent=2)
