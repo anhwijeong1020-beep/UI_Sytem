@@ -18,7 +18,7 @@ with st.form("move_request_form"):
         placeholder=(
             "예) 10층에서 방 C로 목재를 옮기고 싶다.\n"
             "복도 A는 마감 공사 중이라 피하고,\n"
-            "가능하면 안전 우선으로 이동하고 싶다."
+            "가능하면 안전을 우선하고 싶다."
         ),
         height=140,
     )
@@ -42,21 +42,6 @@ with st.form("move_request_form"):
             "Goal (종점) *",
             placeholder="예) 10F Room C / 7F 기계실",
         )
-
-    # 3) Strategy option
-    st.subheader("3) Strategy option")
-    strategy = st.radio(
-        "Routing strategy",
-        [
-            "auto",
-            "time-first",
-            "safety-first",
-            "smooth-first",
-            "flow-first",
-            "cost-first",
-        ],
-        horizontal=True,
-    )
 
     notes = st.text_area(
         "Extra notes (optional)",
@@ -88,10 +73,9 @@ if submitted:
         "material": material.strip(),
         "start": start.strip(),
         "goal": goal.strip(),
-        "strategy": strategy,
         "notes": notes.strip(),
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "ui_version": "nl + required free-text fields + strategy",
+        "ui_version": "nl + required free-text fields (no strategy)",
     }
 
     payload_str = json.dumps(payload, ensure_ascii=False, indent=2)
@@ -109,5 +93,5 @@ if submitted:
 
     st.info(
         "이 payload.json을 Colab에 업로드하여\n"
-        "전략 해석 / 목적함수 생성 / 경로 최적화 파이썬 코드를 실행하면 됩니다."
+        "자연어 기반 전략 해석 / 목적함수 생성 / 경로 최적화를 수행하면 됩니다."
     )
