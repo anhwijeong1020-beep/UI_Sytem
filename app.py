@@ -6,21 +6,21 @@ st.set_page_config(page_title="Logistics UI", layout="wide")
 st.title("📦 Logistics Move Request UI")
 
 st.caption(
-    "자연어로 의도·현장상황·제약을 모두 설명하고,\n"
+    "자연어로 의도·현장상황·제약을 설명하고,\n"
     "자재 / 시점 / 종점은 반드시 입력하세요.\n"
     "(건물·층·공간 명칭은 자유 입력)"
 )
 
 with st.form("move_request_form"):
     # 1) Natural language (ALL-IN-ONE)
-    st.subheader("1) Intent & site situation (natural language)")
+    st.subheader("1) Intent & site situation")
     nl = st.text_area(
         "Describe everything here",
         placeholder=(
-            "예) 10층에서 방 C로 목재를 옮기고 싶다.\n"
+            "예) 10층에서 방 C로 목재를 옮기고 싶음.\n"
             "복도 A는 마감 공사 중이라 피해야 하고,\n"
-            "엘리베이터는 혼잡할 수 있어.\n"
-            "시간보다 안전을 조금 더 중요하게 생각한다."
+            "엘리베이터는 혼잡할 수 있음.\n"
+            "최대한 빨리 옮길 수 있으면 좋겠음."
         ),
         height=180,
     )
