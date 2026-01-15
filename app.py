@@ -6,7 +6,7 @@ st.set_page_config(page_title="Logistics UI", layout="wide")
 st.title("📦 Logistics Move Request UI")
 
 st.caption(
-    "자연어로 의도·현장상황·제약을 설명하고,\n"
+    "의도·현장상황·제약을 설명하고,\n"
     "자재 / 시점 / 종점은 반드시 입력하세요.\n"
     "(건물·층·공간 명칭은 자유 입력)"
 )
